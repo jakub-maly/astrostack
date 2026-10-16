@@ -1,0 +1,8 @@
+numpy>=1.24
+scipy>=1.10
+polars>=0.20
+matplotlib>=3.7
+rawpy>=0.18
+
+# optional, for --tiff output
+tifffile>=2023.1.1
