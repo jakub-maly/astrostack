@@ -163,7 +163,7 @@ it follows that
 
 $$\text{med}(|X - \mu|) = \sigma \text{med}(|Z|) = \sigma\,\Phi^{-1}(0.75),
 \\
-\hat\sigma = 1.482602 \text{med}\!\big(|x_i - \text{med}(x)|\big).$$
+\hat\sigma = 1.482602 \text{med}\!(|x_i - \text{med}(x)|).$$
 
 The cost is efficiency: on Gaussian data the MAD has **37% more
 variance** than the standard deviation, so it needs $1.4\times$ the samples for
@@ -200,7 +200,7 @@ single number per frame.
 **Estimator:** a mesh of σ-clipped medians, interpolated back to full resolution
 with a cubic B-spline. Within each $b \times b$ tile, iterate
 
-$$m^{(k+1)} = \text{med}\big\{\,x_i \;\big\vert\; \|x_i - m^{(k)}\| < \kappa\hat\sigma \,\big\}.$$
+$$m^{(k+1)} = \text{med}\{\,x_i \;\vert\; \|x_i - m^{(k)}\| < \kappa\hat\sigma \,\}.$$
 
 The median is recomputed from the survivors, but $\hat\sigma$ comes from the
 **full** population each time. This is deliberate: $\hat\sigma$ assumes a
@@ -604,15 +604,15 @@ subproblem one that has a closed form:
 $$\min_u \tfrac12\|Mu - y\|^2 + \lambda R(v) \quad \text{s.t.} \quad u = v$$
 
 $$\begin{aligned}
-u^{(k+1)} &= (M^\top M + \rho I)^{-1}\big(M^\top y + \rho(v^{(k)} - w^{(k)})\big) \\
-v^{(k+1)} &= \text{prox}_{\lambda R/\rho}\big(u^{(k+1)} + w^{(k)}\big) \\
+u^{(k+1)} &= (M^\top M + \rho I)^{-1}(M^\top y + \rho(v^{(k)} - w^{(k)})) \\
+v^{(k+1)} &= \text{prox}_{\lambda R/\rho}(u^{(k+1)} + w^{(k)}) \\
 w^{(k+1)} &= w^{(k)} + u^{(k+1)} - v^{(k+1)}
 \end{aligned}$$
 
 The $u$-step is a linear solve that is diagonal in this case, since $M^\top M$ is
 a diagonal mask. The $v$-step is the proximal operator of the regulariser —
 *not* $R$ itself, but the solution of
-$\text{prox}_{\tau R}(z) = \arg\min_x \big(\tfrac12\|x - z\|^2 + \tau R(x)\big)$,
+$\text{prox}_{\tau R}(z) = \arg\min_x (\tfrac12\|x - z\|^2 + \tau R(x))$,
 which for TV is the ROF denoising problem.
 
 This is the useful structural property: the $v$-step depends on neither the data
