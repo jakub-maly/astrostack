@@ -161,9 +161,9 @@ $$\mathbb{P}(|Z| \le m) = 2\Phi(m) - 1 = 0.5 \quad\Longrightarrow\quad \Phi(m) =
 
 it follows that
 
-$$\operatorname{med}(|X - \mu|) = \sigma \operatorname{med}(|Z|) = \sigma\,\Phi^{-1}(0.75),
+$$\text{med}(|X - \mu|) = \sigma \text{med}(|Z|) = \sigma\,\Phi^{-1}(0.75),
 \\
-\hat\sigma = 1.482602 \operatorname{med}\!\big(|x_i - \operatorname{med}(x)|\big).$$
+\hat\sigma = 1.482602 \text{med}\!\big(|x_i - \text{med}(x)|\big).$$
 
 The cost is efficiency: on Gaussian data the MAD has **37% more
 variance** than the standard deviation, so it needs $1.4\times$ the samples for
@@ -200,7 +200,7 @@ single number per frame.
 **Estimator:** a mesh of σ-clipped medians, interpolated back to full resolution
 with a cubic B-spline. Within each $b \times b$ tile, iterate
 
-$$m^{(k+1)} = \operatorname{med}\big\{\,x_i \;\big\vert\; \|x_i - m^{(k)}\| < \kappa\hat\sigma \,\big\}.$$
+$$m^{(k+1)} = \text{med}\big\{\,x_i \;\big\vert\; \|x_i - m^{(k)}\| < \kappa\hat\sigma \,\big\}.$$
 
 The median is recomputed from the survivors, but $\hat\sigma$ comes from the
 **full** population each time. This is deliberate: $\hat\sigma$ assumes a
@@ -398,13 +398,13 @@ This has a **closed-form** solution (Umeyama, 1991):
 
 1. Centre both sets, which decouples the translation.
 2. Minimising $\sum_i \|sR x_i - y_i\|^2$ over $R$ reduces to maximising
-   $\operatorname{tr}(R^\top H)$ with $H = \frac1n \sum_i y_i x_i^\top$.
+   $\text{tr}(R^\top H)$ with $H = \frac1n \sum_i y_i x_i^\top$.
 3. That is the **orthogonal Procrustes** problem, solved by the singular value
    decomposition $H = U \Sigma V^\top$.
 4. The SVD alone can return a *reflection*, which must be excluded:
 
-$$R = U S V^\top, \quad S = \operatorname{diag}(1, \det(UV^\top)), \quad
-s = \frac{\operatorname{tr}(\Sigma S)}{\frac1n \sum_i \|x_i\|^2}, \quad
+$$R = U S V^\top, \quad S = \text{diag}(1, \det(UV^\top)), \quad
+s = \frac{\text{tr}(\Sigma S)}{\frac1n \sum_i \|x_i\|^2}, \quad
 t = \bar y - sR\bar x.$$
 
 ### Random sample consensus
@@ -605,14 +605,14 @@ $$\min_u \tfrac12\|Mu - y\|^2 + \lambda R(v) \quad \text{s.t.} \quad u = v$$
 
 $$\begin{aligned}
 u^{(k+1)} &= (M^\top M + \rho I)^{-1}\big(M^\top y + \rho(v^{(k)} - w^{(k)})\big) \\
-v^{(k+1)} &= \operatorname{prox}_{\lambda R/\rho}\big(u^{(k+1)} + w^{(k)}\big) \\
+v^{(k+1)} &= \text{prox}_{\lambda R/\rho}\big(u^{(k+1)} + w^{(k)}\big) \\
 w^{(k+1)} &= w^{(k)} + u^{(k+1)} - v^{(k+1)}
 \end{aligned}$$
 
 The $u$-step is a linear solve that is diagonal in this case, since $M^\top M$ is
 a diagonal mask. The $v$-step is the proximal operator of the regulariser —
 *not* $R$ itself, but the solution of
-$\operatorname{prox}_{\tau R}(z) = \arg\min_x \big(\tfrac12\|x - z\|^2 + \tau R(x)\big)$,
+$\text{prox}_{\tau R}(z) = \arg\min_x \big(\tfrac12\|x - z\|^2 + \tau R(x)\big)$,
 which for TV is the ROF denoising problem.
 
 This is the useful structural property: the $v$-step depends on neither the data
